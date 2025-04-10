@@ -67,6 +67,54 @@
       width: 100%;
       border-radius: 10px;
     }
+    
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0f0f0f;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #00ffcc;
+      text-shadow: 0 0 10px #00ffcc;
+    }
+
+    .video-container {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      border: 3px solid #00ffcc;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 20px #00ffcc33;
+      transition: transform 0.3s ease;
+    }
+
+    .video-container:hover {
+      transform: scale(1.02);
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #888;
+    }
+ 
   </style>
   <link rel="sortcut icon" href="an.png">
 </head>
@@ -76,6 +124,12 @@
       <img src="./an.png" alt="an" height="70">
      <h2>ANDROMIN TV</h2>
     <h1>Découvre notre application</h1>
+    <div class="video-container">
+    <video controls>
+      <source src="an.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la lecture de vidéos.
+    </video>
+  </div>
     <p>Profite d'une expérience unique en téléchargeant notre app dès maintenant !</p>
     
     <!-- Remplace le lien ci-dessous par ton lien de téléchargement -->
@@ -83,7 +137,11 @@
 
     <!-- Image facultative de ton app ou une capture d’écran -->
     <!-- <img src="capture.jpg" alt="Aperçu de l'application" class="app-image"> -->
+    <footer>
+        votre application de confiance 
+    </footer>
   </div>
 
 </body>
-</html>
+  </html>
+  
