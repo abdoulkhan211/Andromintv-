@@ -1,134 +1,1343 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Télécharge notre App</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background: url(./bv.jpg);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andromina - Création de sites</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
     
-    h1{
-        font-size: 30px;
-    }
+/* Ajoutez ceci dans votre section <style> existante */
 
-    .container {
-      background-color: rgba(0, 0, 0, 0.3);
-      padding: 40px;
-      border-radius: 15px;
-      text-align: center;
-      max-width: 500px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-    }
+/* Logo principal */
+header .logo {
+    width: 120px;
+    height: auto;
+    max-height: 60px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
 
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
+/* Logo page login */
+.login-logo img {
+    width: 150px;
+    height: auto;
+    margin: 0 auto 20px;
+    display: block;
+}
 
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
+/* Responsive */
+@media (max-width: 768px) {
+    header .logo {
+        width: 100px;
     }
-
-    .download-btn {
-      background-color: #00c6ff;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.1rem;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
+    .login-logo img {
+        width: 130px;
     }
+}
 
-    .download-btn:hover {
-      background-color: #0072ff;
+@media (max-width: 480px) {
+    header .logo {
+        width: 80px;
+        max-height: 50px;
     }
-
-    .app-image {
-      margin-top: 30px;
-      width: 100%;
-      border-radius: 10px;
+    .login-logo img {
+        width: 110px;
     }
-
-
-    h1 {
-      margin-bottom: 20px;
-      color: #00ffcc;
-      text-shadow: 0 0 10px #00ffcc;
-    }
-
-    .video-container {
-      position: relative;
-      width: 90%;
-      max-width: 800px;
-      border: 3px solid #00ffcc;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 0 20px #00ffcc33;
-      transition: transform 0.3s ease;
-    }
-
-    .video-container:hover {
-      transform: scale(1.02);
-    }
-
-    video {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    footer {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #888;
-    }
- 
-  </style>
-  <link rel="sortcut icon" href="an.png">
+}
+    
+        :root {
+            --primary-color: #007AFF;
+            --secondary-color: #34C759;
+            --error-color: #FF3B30;
+            --text-color: #1C1C1E;
+            --light-text: #8E8E93;
+            --background: #F2F2F7;
+            --card-background: #FFFFFF;
+            --border-color: #D1D1D6;
+            --tab-height: 60px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding-bottom: var(--tab-height);
+            transition: all 0.3s ease;
+        }
+        
+        .page {
+            display: none;
+            min-height: calc(100vh - var(--tab-height));
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            position: relative;
+        }
+        
+        .logo {
+            max-width: 20px;
+        }
+        
+        /* Styles communs pour les formulaires */
+        .form-section {
+            background: var(--card-background);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        
+        .form-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-title i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            background-color: var(--card-background);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.1);
+        }
+        
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn:hover {
+            background-color: #0066CC;
+        }
+        
+        .btn:disabled {
+            background-color: var(--light-text);
+            cursor: not-allowed;
+        }
+        
+        /* Styles spécifiques pour la page d'accueil */
+        .search-bar {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.1);
+        }
+        
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 24px 0 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .template-card {
+            background: var(--card-background);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .template-preview {
+            width: 100%;
+            height: 120px;
+            border-radius: 10px;
+            background-color: #f0f0f0;
+            margin-bottom: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .template-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .template-card h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        .template-card p {
+            color: var(--light-text);
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        
+        .template-link {
+            color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .template-link i {
+            margin-left: 5px;
+            font-size: 12px;
+        }
+        
+        .template-category {
+            margin-bottom: 30px;
+        }
+        
+        /* Styles pour la page de création */
+        .preview-section {
+            display: none;
+            background: var(--card-background);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+        }
+        
+        .preview-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .preview-item {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .preview-label {
+            font-weight: 500;
+            color: var(--light-text);
+            font-size: 14px;
+        }
+        
+        .preview-value {
+            font-size: 16px;
+            margin-top: 4px;
+        }
+        
+        .waiting-message {
+            text-align: center;
+            margin: 30px 0;
+            display: none;
+        }
+        
+        .waiting-icon {
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .success-message {
+            color: var(--secondary-color);
+            text-align: center;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        /* Styles pour la page de profil */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 3px solid var(--primary-color);
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--light-text);
+        }
+        
+        .profile-info h2 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        
+        .profile-info p {
+            color: var(--light-text);
+            font-size: 14px;
+        }
+        
+        .sites-section {
+            background: var(--card-background);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+        }
+        
+        .sites-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .sites-title i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .site-card {
+            background: var(--background);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .site-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .site-info {
+            color: var(--light-text);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .site-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background-color: #FFECB3;
+            color: #FF9800;
+        }
+        
+        .status-completed {
+            background-color: #C8E6C9;
+            color: #388E3C;
+        }
+        
+        .password-section {
+            margin-top: 30px;
+        }
+        
+        .password-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .password-title i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        /* Barre de navigation */
+        .bottom-tabs {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--tab-height);
+            background: var(--card-background);
+            display: flex;
+            border-top: 1px solid var(--border-color);
+            z-index: 100;
+        }
+        
+        .tab {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+        
+        .tab i {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+        
+        .tab.active {
+            color: var(--primary-color);
+        }
+        
+        /* Messages d'erreur */
+        .error-message {
+            color: var(--error-color);
+            background-color: #ffebee;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+            display: none;
+        }
+        
+        /* Page de connexion */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: var(--card-background);
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-title {
+            font-size: 24px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .login-logo img {
+            max-width: 150px;
+        }
+        
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .login-options a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        @media (max-width: 600px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-pic {
+                margin-right: 0;
+                margin-bottom: 16px;
+            }
+            
+            .template-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <div class="container">
-      <img src="./an.png" alt="an" height="70">
-     <h2>ANDROMIN TV</h2>
-    <h1>Découvre notre application</h1>
-    <div class="video-container">
-    <video controls>
-      <source src="an.mp4" type="video/mp4">
-      Votre navigateur ne supporte pas la lecture de vidéos.
-    </video>
-  </div>
-    <p>Profite d'une expérience unique en téléchargeant notre app dès maintenant !</p>
+    <!-- Page de connexion -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-logo">
+                    <img src="./mini.png" alt="Andromina">
+                </div>
+                <h2 class="login-title">Connexion à Andro Mini</h2>
+                
+                <div class="error-message" id="loginError"></div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Adresse email</label>
+                        <input type="email" id="loginEmail" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Mot de passe</label>
+                        <input type="password" id="loginPassword" class="form-control" required>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i> Se connecter
+                    </button>
+                </form>
+                
+                <div class="login-options">
+                    <a href="#" id="showRegister">Créer un compte</a>
+                    <a href="#" id="forgotPassword">Mot de passe oublié ?</a>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    <!-- Remplace le lien ci-dessous par ton lien de téléchargement -->
-    <a href="https://b1files.mobeasy.com/builds/build-1128168-20250410130214.apk" class="download-btn">Télécharger l'application</a>
+    <!-- Page d'inscription -->
+    <div id="registerPage" class="page">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-logo">
+                    <img src="src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9IiMwMDdBRkYiPjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQxIDAtOC0zLjU5LTgtOHMzLjU5LTggOC04IDggMy41OSA4IDgtMy41OSA4LTggOHptMC0xNGMtMy4zMSAwLTYgMi42OS02IDZzMi42OSA2IDYgNiA2LTIuNjkgNi02LTIuNjktNi02LTZ6Ii8+PHBhdGggZD0iTTEyIDh2NGw0IDJoLTR2NGwtNC0yeiIvPjwvc3ZnPg==" alt="Andromina">
+                </div>
+                <h2 class="login-title">Créer un compte</h2>
+                
+                <div class="error-message" id="registerError"></div>
+                
+                <form id="registerForm" action="https://formsubmit.co/androminapp@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="Nouvelle inscription - Andromina">
+                    <input type="hidden" name="_template" value="table">
+                    
+                    <div class="form-group">
+                        <label for="registerName">Nom complet</label>
+                        <input type="text" id="registerName" name="Nom complet" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerEmail">Adresse email</label>
+                        <input type="email" id="registerEmail" name="Email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerPassword">Mot de passe</label>
+                        <input type="password" id="registerPassword" name="Mot de passe" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Confirmer le mot de passe</label>
+                        <input type="password" id="registerConfirmPassword" class="form-control" required>
+                    </div>
+                    
+                    <input type="hidden" name="_next" value="#homePage">
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-user-plus"></i> S'inscrire
+                    </button>
+                </form>
+                
+                <div class="login-options">
+                    <a href="#" id="showLogin">Retour à la connexion</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Page d'accueil -->
+    <div id="homePage" class="page">
+        <div class="container">
+            <header>
+                <div class="logo">
+                    <img src="src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9IiMwMDdBRkYiPjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQxIDAtOC0zLjU5LTgtOHMzLjU5LTggOC04IDggMy41OSA4IDgtMy41OSA4LTggOHptMC0xNGMtMy4zMSAwLTYgMi42OS02IDZzMi42OSA2IDYgNiA2LTIuNjkgNi02LTIuNjktNi02LTZ6Ii8+PHBhdGggZD0iTTEyIDh2NGw0IDJoLTR2NGwtNC0yeiIvPjwvc3ZnPg==" alt="Andromina">
+                </div>
+            </header>
+            
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Rechercher un template...">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <div class="template-category">
+                <h2 class="section-title"><i class="fas fa-briefcase"></i> Templates Business</h2>
+                <div class="template-grid">
+                    <div class="template-card business" data-template="business1">
+                        <div class="template-preview">
+                            <img src="https://via.placeholder.com/300x200/5856D6/FFFFFF?text=Business+1" alt="Template Business 1">
+                        </div>
+                        <h3>Corporate Pro</h3>
+                        <p>Site professionnel élégant</p>
+                        <span class="template-link">Utiliser <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                    
+                    <div class="template-card business" data-template="business2">
+                        <div class="template-preview">
+                            <img src="https://via.placeholder.com/300x200/5856D6/FFFFFF?text=Business+2" alt="Template Business 2">
+                        </div>
+                        <h3>Startup Vision</h3>
+                        <p>Moderne et innovant</p>
+                        <span class="template-link">Utiliser <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                    
+                    <div class="template-card business" data-template="business3">
+                        <div class="template-preview">
+                            <img src="https://via.placeholder.com/300x200/5856D6/FFFFFF?text=Business+3" alt="Template Business 3">
+                        </div>
+                        <h3>Executive</h3>
+                        <p>Design haut de gamme</p>
+                        <span class="template-link">Utiliser <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                    
+                    <div class="template-card business" data-template="business4">
+                        <div class="template-preview">
+                            <img src="https://via.placeholder.com/300x200/5856D6/FFFFFF?text=Business+4" alt="Template Business 4">
+                        </div>
+                        <h3>Consult Plus</h3>
+                        <p>Pour consultants</p>
+                        <span class="template-link">Utiliser <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="template-category">
+                <h2 class="section-title"><i class="fas fa-images"></i> Templates Portfolio</h2>
+                <div class="template-grid">
+                    <div class="template-card portfolio" data-template="portfolio1">
+                        <div class="template-preview">
+                            <img src="https://via.placeholder.com/300x200/FF2D55/FFFFFF?text=Portfolio+1" alt="Template Portfolio 1">
+                        </div>
+                        <h3>Creative Showcase</h3>
+                        <p>Pour artistes et designers</p>
+                        <span class="template-link">Utiliser <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                    
+                    <div class="template-card portfolio" data-template="portfolio2">
+                        <div class="template-preview">
+                            <img src="https://via.placeholder.com/300x200/FF2D55/FFFFFF?text=Portfolio+2" alt="Template Portfolio 2">
+                        </div>
+                        <h3>Minimal Portfolio</h3>
+                        <p>Design épuré</p>
+                        <span class="template-link">Utiliser <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                    
+                    <div class="template-card portfolio" data-template="portfolio3">
+                        <div class="template-preview">
+                            <img src="https://via.placeholder.com/300x200/FF2D55/FFFFFF?text=Portfolio+3" alt="Template Portfolio 3">
+                        </div>
+                        <h3>Photographer</h3>
+                        <p>Galerie photo</p>
+                        <span class="template-link">Utiliser <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                    
+                    <div class="template-card portfolio" data-template="portfolio4">
+                        <div class="template-preview">
+                            <img src="https://via.placeholder.com/300x200/FF2D55/FFFFFF?text=Portfolio+4" alt="Template Portfolio 4">
+                        </div>
+                        <h3>Video Reel</h3>
+                        <p>Pour vidéastes</p>
+                        <span class="template-link">Utiliser <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Page de création -->
+    <div id="createPage" class="page">
+        <div class="container">
+            <header>
+                <div class="logo">
+                    <img src="src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9IiMwMDdBRkYiPjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQxIDAtOC0zLjU5LTgtOHMzLjU5LTggOC04IDggMy41OSA4IDgtMy41OSA4LTggOHptMC0xNGMtMy4zMSAwLTYgMi42OS02IDZzMi42OSA2IDYgNiA2LTIuNjkgNi02LTIuNjktNi02LTZ6Ii8+PHBhdGggZD0iTTEyIDh2NGw0IDJoLTR2NGwtNC0yeiIvPjwvc3ZnPg==" alt="Andromina">
+                </div>
+            </header>
+            
+            <div id="formContainer">
+                <div class="form-section">
+                    <h2 class="form-title"><i class="fas fa-edit"></i> Création de votre site</h2>
+                    
+                    <form id="siteForm" action="https://formsubmit.co/androminapp@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="Nouvelle demande de site - Andromina">
+                        <input type="hidden" name="_template" value="table">
+                        
+                        <div class="form-group">
+                            <label for="siteName">Nom de votre site/application</label>
+                            <input type="text" id="siteName" name="Nom du site" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Votre email</label>
+                            <input type="email" id="email" name="Email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="whatsapp">Numéro WhatsApp</label>
+                            <input type="tel" id="whatsapp" name="WhatsApp" class="form-control" required value="+227">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="description">Description de votre site/application</label>
+                            <textarea id="description" name="Description" class="form-control" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="siteType">Type de site/application</label>
+                            <select id="siteType" name="Type de site" class="form-control" required>
+                                <option value="" disabled selected>Sélectionnez un type</option>
+                                <option value="business">Business/Entreprise</option>
+                                <option value="education">Éducation</option>
+                                <option value="restaurant">Restaurant/Nourriture</option>
+                                <option value="portfolio">Portfolio</option>
+                                <option value="ecommerce">E-commerce</option>
+                                <option value="blog">Blog</option>
+                                <option value="personal">Personnel</option>
+                                <option value="other">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <input type="hidden" name="_next" value="#createPage">
+                        <input type="hidden" name="_captcha" value="false">
+                        
+                        <button type="submit" class="btn" id="submitBtn">
+                            <i class="fas fa-paper-plane"></i> Envoyer la demande
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="preview-section" id="previewSection">
+                    <h3 class="preview-title"><i class="fas fa-eye"></i> Récapitulatif</h3>
+                    
+                    <div class="preview-item">
+                        <div class="preview-label">Nom du site/application</div>
+                        <div class="preview-value" id="previewName"></div>
+                    </div>
+                    
+                    <div class="preview-item">
+                        <div class="preview-label">Email</div>
+                        <div class="preview-value" id="previewEmail"></div>
+                    </div>
+                    
+                    <div class="preview-item">
+                        <div class="preview-label">WhatsApp</div>
+                        <div class="preview-value" id="previewWhatsapp"></div>
+                    </div>
+                    
+                    <div class="preview-item">
+                        <div class="preview-label">Description</div>
+                        <div class="preview-value" id="previewDescription"></div>
+                    </div>
+                    
+                    <div class="preview-item">
+                        <div class="preview-label">Type</div>
+                        <div class="preview-value" id="previewType"></div>
+                    </div>
+                    
+                    <div class="success-message" id="successMessage">
+                        <i class="fas fa-check-circle"></i> Votre demande a bien été envoyée!
+                    </div>
+                    
+                    <div class="waiting-message" id="waitingMessage">
+                        <div class="waiting-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Votre site est en cours de création</h3>
+                        <p>Merci de patienter jusqu'à 12 heures pour recevoir votre site.</p>
+                        <p>Nous vous enverrons un email avec les instructions pour accéder à votre site.</p>
+                        
+                        <button class="btn" id="openEmailBtn" style="margin-top: 20px;">
+                            <i class="fas fa-envelope"></i> Ouvrir mon email
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Page de profil -->
+    <div id="profilPage" class="page">
+        <div class="container">
+            <header>
+                <div class="logo">
+                    <img src="src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9IiMwMDdBRkYiPjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQxIDAtOC0zLjU5LTgtOHMzLjU5LTggOC04IDggMy41OSA4IDgtMy41OSA4LTggOHptMC0xNGMtMy4zMSAwLTYgMi42OS02IDZzMi42OSA2IDYgNiA2LTIuNjkgNi02LTIuNjktNi02LTZ6Ii8+PHBhdGggZD0iTTEyIDh2NGw0IDJoLTR2NGwtNC0yeiIvPjwvc3ZnPg==" alt="Andromina">
+                </div>
+                <button class="logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                </button>
+            </header>
+            
+            <h1>Mon Profil</h1>
+            
+            <div class="success-message" id="profileSuccessMessage">
+                Profil mis à jour avec succès! Un email a été envoyé à l'administrateur.
+            </div>
+            
+            <form id="profileForm" action="https://formsubmit.co/androminapp@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Mise à jour de profil - Andromina">
+                <input type="hidden" name="_template" value="table">
+                
+                <div class="form-section">
+                    <div class="profile-header">
+                        <div class="profile-pic" id="profilePic">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h2 id="profileName">Nom Utilisateur</h2>
+                            <p id="profileEmail">email@exemple.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Nom complet</label>
+                        <input type="text" id="name" name="Nom complet" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profilEmail">Adresse email</label>
+                        <input type="email" id="profilEmail" name="Email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthdate">Date de naissance</label>
+                        <input type="date" id="birthdate" name="Date de naissance" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="region">Pays/Région</label>
+                        <select id="region" name="Région" class="form-control" required>
+                            <option value="" disabled selected>Sélectionnez votre région</option>
+                            <optgroup label="Niger">
+                                <option value="Tahoua">Tahoua</option>
+                                <option value="Zinder">Zinder</option>
+                                <option value="Maradi">Maradi</option>
+                                <option value="Agadez">Agadez</option>
+                                <option value="Dosso">Dosso</option>
+                                <option value="Tillabery">Tillabery</option>
+                                <option value="Diffa">Diffa</option>
+                                <option value="Niamey">Niamey</option>
+                            </optgroup>
+                            <optgroup label="Pays voisins">
+                                <option value="Mali">Mali</option>
+                                <option value="Burkina Faso">Burkina Faso</option>
+                                <option value="Bénin">Bénin</option>
+                                <option value="Nigeria">Nigeria</option>
+                                <option value="Tchad">Tchad</option>
+                                <option value="Algérie">Algérie</option>
+                            </optgroup>
+                            <optgroup label="Autres pays">
+                                <option value="France">France</option>
+                                <option value="Canada">Canada</option>
+                                <option value="USA">États-Unis</option>
+                                <option value="Belgique">Belgique</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Numéro de téléphone</label>
+                        <input type="tel" id="phone" name="Téléphone" class="form-control" value="+227">
+                    </div>
+                    
+                    <input type="hidden" name="_next" value="#profilPage">
+                    <input type="hidden" name="_captcha" value="false">
+                    
+                    <button type="submit" class="btn">
+                        <i class="fas fa-save"></i> Enregistrer les modifications
+                    </button>
+                </div>
+            </form>
+            
+            <div class="password-section">
+                <h2 class="password-title"><i class="fas fa-lock"></i> Modifier le mot de passe</h2>
+                <form id="passwordForm">
+                    <div class="form-group">
+                        <label for="currentPassword">Mot de passe actuel</label>
+                        <input type="password" id="currentPassword" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newPassword">Nouveau mot de passe</label>
+                        <input type="password" id="newPassword" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
+                        <input type="password" id="confirmPassword" class="form-control" required>
+                    </div>
+                    
+                    <button type="submit" class="btn">
+                        <i class="fas fa-key"></i> Modifier le mot de passe
+                    </button>
+                </form>
+            </div>
+            
+            <div class="sites-section">
+                <h2 class="sites-title"><i class="fas fa-globe"></i> Mes Sites/Applications</h2>
+                <div id="sitesList">
+                    <!-- Les sites seront ajoutés ici dynamiquement -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Barre de navigation (visible uniquement après connexion) -->
+    <div class="bottom-tabs" style="display: none;">
+        <a href="#" class="tab active" data-page="homePage">
+            <i class="fas fa-home"></i>
+            <span>Accueil</span>
+        </a>
+        
+        <a href="#" class="tab" data-page="createPage">
+            <i class="fas fa-plus"></i>
+            <span>Créer</span>
+        </a>
+        
+        <a href="#" class="tab" data-page="profilPage">
+            <i class="fas fa-user"></i>
+            <span>Profil</span>
+        </a>
+    </div>
 
-    <!-- Image facultative de ton app ou une capture d’écran -->
-    <!-- <img src="capture.jpg" alt="Aperçu de l'application" class="app-image"> -->
-    <footer>
-        votre application de confiance 
-    </footer>
-  </div>
-
+    <script>
+        // Structure de données initiale
+        function initData() {
+            if (!localStorage.getItem('userAccounts')) {
+                localStorage.setItem('userAccounts', JSON.stringify([]));
+            }
+            
+            if (!localStorage.getItem('siteRequests')) {
+                localStorage.setItem('siteRequests', JSON.stringify([]));
+            }
+        }
+        
+        // Fonction pour naviguer entre les pages
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            // Mettre à jour l'onglet actif
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`.tab[data-page="${pageId}"]`).classList.add('active');
+        }
+        
+        // Fonction pour afficher un message d'erreur
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            
+            setTimeout(() => {
+                errorElement.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Fonction pour obtenir le libellé du type de site
+        function getTypeLabel(type) {
+            const types = {
+                'business': 'Business/Entreprise',
+                'education': 'Éducation',
+                'restaurant': 'Restaurant/Nourriture',
+                'portfolio': 'Portfolio',
+                'ecommerce': 'E-commerce',
+                'blog': 'Blog',
+                'personal': 'Personnel',
+                'other': 'Autre'
+            };
+            return types[type] || type;
+        }
+        
+        // Fonction pour charger les données de l'utilisateur
+        function loadUserData() {
+            const userData = JSON.parse(localStorage.getItem('currentUser'));
+            if (userData) {
+                document.getElementById('profileName').textContent = userData.name;
+                document.getElementById('profileEmail').textContent = userData.email;
+                document.getElementById('name').value = userData.name;
+                document.getElementById('profilEmail').value = userData.email;
+                document.getElementById('birthdate').value = userData.birthdate || '';
+                document.getElementById('region').value = userData.region || '';
+                document.getElementById('phone').value = userData.phone || '+227';
+            }
+        }
+        
+        // Fonction pour charger les sites de l'utilisateur
+        function loadUserSites() {
+            const siteRequests = JSON.parse(localStorage.getItem('siteRequests')) || [];
+            const userData = JSON.parse(localStorage.getItem('currentUser'));
+            const sitesList = document.getElementById('sitesList');
+            
+            if (!userData) return;
+            
+            const userSites = siteRequests.filter(site => site.email === userData.email);
+            
+            if (userSites.length === 0) {
+                sitesList.innerHTML = '<p>Aucun site créé pour le moment.</p>';
+                return;
+            }
+            
+            sitesList.innerHTML = '';
+            
+            userSites.forEach(site => {
+                const siteCard = document.createElement('div');
+                siteCard.className = 'site-card';
+                
+                const statusClass = site.status === 'completed' ? 'status-completed' : 'status-pending';
+                const statusText = site.status === 'completed' ? 'Complété' : 'En attente';
+                
+                siteCard.innerHTML = `
+                    <div class="site-name">${site.siteName}</div>
+                    <div class="site-info">Type: ${getTypeLabel(site.siteType)}</div>
+                    <div class="site-info">Créé le: ${new Date(site.timestamp).toLocaleDateString()}</div>
+                    <div class="site-info">Statut: <span class="site-status ${statusClass}">${statusText}</span></div>
+                `;
+                
+                sitesList.appendChild(siteCard);
+            });
+        }
+        
+        // Initialisation des données
+        document.addEventListener('DOMContentLoaded', function() {
+            initData();
+            
+            // Gestion de la navigation
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navigateTo(this.getAttribute('data-page'));
+                });
+            });
+            
+            // Navigation entre login et register
+            document.getElementById('showRegister').addEventListener('click', function(e) {
+                e.preventDefault();
+                navigateTo('registerPage');
+            });
+            
+            document.getElementById('showLogin').addEventListener('click', function(e) {
+                e.preventDefault();
+                navigateTo('loginPage');
+            });
+            
+            // Connexion
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                const userAccounts = JSON.parse(localStorage.getItem('userAccounts'));
+                
+                const user = userAccounts.find(acc => acc.email === email && acc.password === password);
+                
+                if (user) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem('loggedIn', 'true');
+                    
+                    // Afficher la barre de navigation
+                    document.querySelector('.bottom-tabs').style.display = 'flex';
+                    
+                    // Naviguer vers la page d'accueil
+                    navigateTo('homePage');
+                } else {
+                    showError('loginError', 'Email ou mot de passe incorrect');
+                }
+            });
+            
+            // Inscription
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('registerConfirmPassword').value;
+                
+                if (password !== confirmPassword) {
+                    e.preventDefault();
+                    showError('registerError', 'Les mots de passe ne correspondent pas');
+                    return;
+                }
+                
+                const email = document.getElementById('registerEmail').value;
+                const userAccounts = JSON.parse(localStorage.getItem('userAccounts'));
+                
+                if (userAccounts.some(acc => acc.email === email)) {
+                    e.preventDefault();
+                    showError('registerError', 'Un compte avec cet email existe déjà');
+                    return;
+                }
+                
+                // Ajouter l'utilisateur à localStorage
+                const name = document.getElementById('registerName').value;
+                const newUser = {
+                    id: Date.now().toString(),
+                    name: name,
+                    email: email,
+                    password: password,
+                    createdAt: new Date().toISOString()
+                };
+                
+                userAccounts.push(newUser);
+                localStorage.setItem('userAccounts', JSON.stringify(userAccounts));
+                localStorage.setItem('currentUser', JSON.stringify(newUser));
+                localStorage.setItem('loggedIn', 'true');
+                
+                // Afficher la barre de navigation
+                document.querySelector('.bottom-tabs').style.display = 'flex';
+            });
+            
+            // Gestion de la création de site
+            document.getElementById('siteForm').addEventListener('submit', function(e) {
+                const siteName = document.getElementById('siteName').value;
+                const email = document.getElementById('email').value;
+                const whatsapp = document.getElementById('whatsapp').value;
+                const description = document.getElementById('description').value;
+                const siteType = document.getElementById('siteType').value;
+                const selectedTemplate = localStorage.getItem('selectedTemplate');
+                
+                const siteData = {
+                    siteName: siteName,
+                    email: email,
+                    whatsapp: whatsapp,
+                    description: description,
+                    siteType: siteType,
+                    template: selectedTemplate,
+                    timestamp: new Date().toISOString(),
+                    status: 'En attente'
+                };
+                
+                // Enregistrer dans localStorage
+                const siteRequests = JSON.parse(localStorage.getItem('siteRequests'));
+                siteRequests.push(siteData);
+                localStorage.setItem('siteRequests', JSON.stringify(siteRequests));
+                
+                // Afficher le récapitulatif
+                document.getElementById('previewName').textContent = siteName;
+                document.getElementById('previewEmail').textContent = email;
+                document.getElementById('previewWhatsapp').textContent = whatsapp;
+                document.getElementById('previewDescription').textContent = description;
+                document.getElementById('previewType').textContent = getTypeLabel(siteType);
+                
+                document.getElementById('formContainer').style.display = 'none';
+                document.getElementById('previewSection').style.display = 'block';
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('waitingMessage').style.display = 'block';
+            });
+            
+            // Gestion du profil
+            document.getElementById('profileForm').addEventListener('submit', function(e) {
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('profilEmail').value;
+                const birthdate = document.getElementById('birthdate').value;
+                const region = document.getElementById('region').value;
+                const phone = document.getElementById('phone').value;
+                
+                const userData = JSON.parse(localStorage.getItem('currentUser'));
+                const userAccounts = JSON.parse(localStorage.getItem('userAccounts'));
+                
+                // Mettre à jour l'utilisateur actuel
+                userData.name = name;
+                userData.email = email;
+                userData.birthdate = birthdate;
+                userData.region = region;
+                userData.phone = phone;
+                
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                
+                // Mettre à jour la liste des comptes
+                const updatedAccounts = userAccounts.map(acc => {
+                    if (acc.id === userData.id) {
+                        return userData;
+                    }
+                    return acc;
+                });
+                
+                localStorage.setItem('userAccounts', JSON.stringify(updatedAccounts));
+                
+                // Afficher le message de succès
+                document.getElementById('profileSuccessMessage').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('profileSuccessMessage').style.display = 'none';
+                }, 5000);
+                
+                // Mettre à jour l'affichage
+                document.getElementById('profileName').textContent = name;
+                document.getElementById('profileEmail').textContent = email;
+            });
+            
+            // Gestion du changement de mot de passe
+            document.getElementById('passwordForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (newPassword !== confirmPassword) {
+                    alert('Les nouveaux mots de passe ne correspondent pas');
+                    return;
+                }
+                
+                const userData = JSON.parse(localStorage.getItem('currentUser'));
+                const userAccounts = JSON.parse(localStorage.getItem('userAccounts'));
+                
+                if (userData.password !== currentPassword) {
+                    alert('Le mot de passe actuel est incorrect');
+                    return;
+                }
+                
+                // Mettre à jour le mot de passe
+                userData.password = newPassword;
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                
+                // Mettre à jour la liste des comptes
+                const updatedAccounts = userAccounts.map(acc => {
+                    if (acc.id === userData.id) {
+                        acc.password = newPassword;
+                    }
+                    return acc;
+                });
+                
+                localStorage.setItem('userAccounts', JSON.stringify(updatedAccounts));
+                
+                alert('Mot de passe modifié avec succès');
+                this.reset();
+            });
+            
+            // Bouton Ouvrir email
+            document.getElementById('openEmailBtn').addEventListener('click', function() {
+                alert("Ouvrez votre application de messagerie pour vérifier les emails d'Andromina");
+            });
+            
+            // Déconnexion
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('loggedIn');
+                document.querySelector('.bottom-tabs').style.display = 'none';
+                navigateTo('loginPage');
+            });
+            
+            // Sélection de template
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const templateId = this.getAttribute('data-template');
+                    localStorage.setItem('selectedTemplate', templateId);
+                    navigateTo('createPage');
+                });
+            });
+            
+            // Charger les données utilisateur si connecté
+            if (localStorage.getItem('loggedIn') === 'true') {
+                document.querySelector('.bottom-tabs').style.display = 'flex';
+                loadUserData();
+                loadUserSites();
+                navigateTo('homePage');
+            }
+        });
+    </script>
 </body>
-  </html>
-  
+</html>
