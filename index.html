@@ -246,6 +246,8 @@
 
         .data-list li .item-details {
             flex-grow: 1;
+            display: flex; /* Utilisation de flexbox pour l'image et le texte */
+            align-items: center;
         }
         .data-list li .item-details img {
             max-width: 80px;
@@ -253,6 +255,10 @@
             border-radius: 5px;
             margin-right: 10px;
             object-fit: cover;
+            border: 1px solid var(--border-color); /* Pour les images qui ne se chargent pas */
+        }
+        .data-list li .item-details div.text-info {
+            flex-grow: 1;
         }
         .data-list li .item-details p {
             margin: 5px 0;
@@ -413,17 +419,23 @@
                     <h4>Messages des Utilisateurs</h4>
                     <p style="font-size: 2em; font-weight: bold; color: var(--accent-color);" id="total-messages-count">0</p>
                 </div>
-                </div>
+            </div>
         </section>
 
         <section id="product-management-section" class="hidden">
             <h2>Gestion des Produits</h2>
             <h3>Ajouter un Nouveau Produit</h3>
             <form id="add-product-form">
-                <input type="text" id="product-name" placeholder="Nom du produit" required>
-                <input type="number" id="product-price" placeholder="Prix (XOF)" required step="0.01">
-                <textarea id="product-description" placeholder="Description du produit" required></textarea>
-                <input type="url" id="product-image-url" placeholder="URL de l'image du produit" required>
+                <input type="text" id="product-name" placeholder="Nom du produit (ex: Smartphone X)" required>
+                <input type="number" id="product-price" placeholder="Prix (XOF, ex: 150000.00)" required step="0.01">
+                <textarea id="product-description" placeholder="Description détaillée du produit (ex: Un smartphone puissant avec 128Go de stockage...)" required></textarea>
+
+                <label for="product-image-upload">Option 1: Télécharger une image depuis votre ordinateur :</label>
+                <input type="file" id="product-image-upload" accept="image/*">
+
+                <label for="product-image-url">Option 2: Ou coller l'URL d'une image existante (laisse vide si vous téléchargez) :</label>
+                <input type="url" id="product-image-url" placeholder="URL de l'image (ex: https://example.com/image.jpg)">
+
                 <button type="submit" class="action-button">Ajouter Produit</button>
             </form>
 
@@ -440,14 +452,15 @@
                 <li style="text-align: center; color: var(--light-text-color);">Chargement des messages...</li>
             </ul>
         </section>
-
-        </main>
+    </main>
 
     <script type="module">
         // Import des fonctions Firebase nécessaires
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, query, where, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+        // Ajout de arrayUnion pour incrémenter les vues si nécessaire côté client
+        import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, query, where, orderBy, limit, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
 
         // Votre configuration Firebase (Utilisez la même que pour votre application front-end)
         const firebaseConfig = {
@@ -464,6 +477,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        const storage = getStorage(app);
 
         // --- Éléments du DOM ---
         const loginPage = document.getElementById('login-page');
@@ -477,17 +491,18 @@
         const dashboardSection = document.getElementById('dashboard-section');
         const productManagementSection = document.getElementById('product-management-section');
         const messageManagementSection = document.getElementById('message-management-section');
-        // const userManagementSection = document.getElementById('user-management-section'); // Désactivé pour la sécurité
 
         const addProductForm = document.getElementById('add-product-form');
+        const productImageUpload = document.getElementById('product-image-upload');
+        const productImageURL = document.getElementById('product-image-url');
         const productList = document.getElementById('product-list');
         const messageList = document.getElementById('message-list');
         const totalProductsCount = document.getElementById('total-products-count');
-        const totalMessagesCount = document.getElementById('total-messages-count'); // Renommé pour plus de clarté
+        const totalMessagesCount = document.getElementById('total-messages-count');
 
 
         // --- Constante Admin ---
-        const ADMIN_EMAIL = "aby1122@gmail.com";
+        const ADMIN_EMAIL = "aby1122@gmail.com"; // *** Mettez votre email d'administrateur ici ***
 
         // --- Fonctions d'authentification ---
 
@@ -496,11 +511,11 @@
                 console.log("Admin connecté:", user.email);
                 loginPage.classList.add('hidden');
                 adminSidebar.classList.remove('hidden');
-                dashboardSection.classList.remove('hidden'); // Afficher le dashboard par défaut
+                dashboardSection.classList.remove('hidden');
                 authStatus.textContent = `Connecté en tant que: ${user.email}`;
                 adminEmailDisplay.textContent = user.email;
-                showAdminPage('dashboard-section'); // Afficher la page du tableau de bord au démarrage
-                loadDashboardStats(); // Charger les stats du dashboard
+                showAdminPage('dashboard-section');
+                loadDashboardStats();
             } else {
                 console.log("Non connecté ou non admin.");
                 loginPage.classList.remove('hidden');
@@ -519,10 +534,9 @@
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 if (userCredential.user.email !== ADMIN_EMAIL) {
-                    await signOut(auth); // Déconnecter si ce n'est pas l'email admin
+                    await signOut(auth);
                     throw new Error("Accès refusé. Seul l'administrateur peut se connecter ici.");
                 }
-                // onAuthStateChanged gérera l'affichage
             } catch (error) {
                 console.error("Erreur de connexion admin:", error);
                 loginErrorMessage.textContent = error.message;
@@ -555,7 +569,6 @@
                 }
             });
 
-            // Recharger les données si nécessaire
             if (pageId === 'product-management-section') {
                 loadProducts();
             } else if (pageId === 'message-management-section') {
@@ -567,7 +580,7 @@
 
         document.querySelectorAll('nav.sidebar button').forEach(button => {
             button.addEventListener('click', (e) => {
-                if (e.currentTarget.id === 'admin-logout-button') return; // Géré par son propre listener
+                if (e.currentTarget.id === 'admin-logout-button') return;
                 showAdminPage(e.currentTarget.dataset.target);
             });
         });
@@ -575,12 +588,10 @@
         // --- Dashboard Stats ---
         async function loadDashboardStats() {
             try {
-                // Total Products
                 const productsSnapshot = await getDocs(collection(db, "products"));
                 totalProductsCount.textContent = productsSnapshot.size;
 
-                // Total Messages
-                const messagesSnapshot = await getDocs(collection(db, "messages")); // Admin can read all
+                const messagesSnapshot = await getDocs(collection(db, "messages"));
                 totalMessagesCount.textContent = messagesSnapshot.size;
 
             } catch (error) {
@@ -600,24 +611,46 @@
                 return;
             }
 
-            const name = document.getElementById('product-name').value;
+            const name = document.getElementById('product-name').value.trim();
             const price = parseFloat(document.getElementById('product-price').value);
-            const description = document.getElementById('product-description').value;
-            const imageUrl = document.getElementById('product-image-url').value;
+            const description = document.getElementById('product-description').value.trim();
+            const imageFile = productImageUpload.files[0];
+            const imageUrlFromInput = productImageURL.value.trim();
+
+            let finalImageUrl = '';
 
             try {
+                if (imageFile) {
+                    const storageRef = ref(storage, `product_images/${Date.now()}_${imageFile.name}`);
+                    const uploadTask = await uploadBytes(storageRef, imageFile);
+                    finalImageUrl = await getDownloadURL(uploadTask.ref);
+                    console.log("Image uploaded to Storage, URL:", finalImageUrl);
+                } else if (imageUrlFromInput) {
+                    finalImageUrl = imageUrlFromInput;
+                    console.log("Using provided image URL:", finalImageUrl);
+                } else {
+                    alert("Veuillez soit télécharger une image, soit fournir une URL d'image.");
+                    return;
+                }
+
+                if (!name || isNaN(price) || !description || !finalImageUrl) {
+                    alert("Veuillez remplir tous les champs obligatoires (Nom, Prix, Description et Image).");
+                    return;
+                }
+
                 await addDoc(collection(db, "products"), {
                     name,
                     price,
                     description,
-                    imageUrl,
+                    imageUrl: finalImageUrl,
                     createdAt: new Date(),
-                    favoritesCount: 0 // Initialiser pour la compatibilité
+                    viewsCount: 0, // Initialisation du compteur de vues
+                    favoritesCount: 0
                 });
                 alert("Produit ajouté avec succès !");
                 addProductForm.reset();
-                loadProducts(); // Recharger la liste des produits
-                loadDashboardStats(); // Mettre à jour les stats
+                loadProducts();
+                loadDashboardStats();
             } catch (error) {
                 console.error("Erreur lors de l'ajout du produit :", error.message);
                 alert("Erreur lors de l'ajout du produit : " + error.message);
@@ -640,16 +673,19 @@
                     const li = document.createElement('li');
                     li.innerHTML = `
                         <div class="item-details">
-                            <img src="${product.imageUrl}" alt="${product.name}" width="80" height="80">
-                            <p><strong>${product.name}</strong> - ${product.price} XOF</p>
-                            <p>${product.description}</p>
-                            <small>ID: ${productId}</small>
+                            <img src="${product.imageUrl}" alt="${product.name}" width="80" height="80"
+                                 onerror="this.onerror=null;this.src='https://via.placeholder.com/80?text=Image+Non+Dispo';">
+                            <div class="text-info">
+                                <p><strong>${product.name}</strong> - ${product.price} XOF</p>
+                                <p>${product.description}</p>
+                                <p><small>Vues: ${product.viewsCount || 0}</small></p> <small>ID: ${productId}</small>
+                            </div>
                         </div>
                         <div class="item-actions">
-                            <button class="delete-button" data-id="${productId}">Supprimer</button>
+                            <button class="delete-button" data-id="${productId}" data-image-url="${product.imageUrl}">Supprimer</button>
                         </div>
                     `;
-                    li.querySelector('.delete-button').addEventListener('click', () => deleteProduct(productId));
+                    li.querySelector('.delete-button').addEventListener('click', (e) => deleteProduct(e.target.dataset.id, e.target.dataset.imageUrl));
                     productList.appendChild(li);
                 });
             } catch (error) {
@@ -658,16 +694,27 @@
             }
         }
 
-        async function deleteProduct(productId) {
+        async function deleteProduct(productId, imageUrl) {
             const user = auth.currentUser;
             if (!user || user.email !== ADMIN_EMAIL) {
                 alert("Action non autorisée.");
                 return;
             }
 
-            if (confirm("Êtes-vous sûr de vouloir supprimer ce produit et tous ses commentaires ?")) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer ce produit et tous ses commentaires et son image ?")) {
                 try {
-                    // Supprimer les commentaires associés au produit
+                    // Tente de supprimer l'image de Storage UNIQUEMENT si l'URL semble être une URL Firebase Storage
+                    if (imageUrl && imageUrl.includes(firebaseConfig.storageBucket)) {
+                        const imageRef = ref(storage, imageUrl);
+                        await deleteObject(imageRef).then(() => {
+                            console.log("Image supprimée de Storage.");
+                        }).catch((error) => {
+                            console.warn("Impossible de supprimer l'image de Storage (elle n'existe peut-être plus ou est externe):", error.message);
+                        });
+                    } else if (imageUrl) {
+                        console.log("L'image n'est pas hébergée sur Firebase Storage, suppression ignorée.", imageUrl);
+                    }
+
                     const commentsRef = collection(db, "products", productId, "comments");
                     const commentsSnapshot = await getDocs(commentsRef);
                     const deleteCommentPromises = [];
@@ -677,11 +724,10 @@
                     await Promise.all(deleteCommentPromises);
                     console.log(`Tous les commentaires pour le produit ${productId} ont été supprimés.`);
 
-                    // Supprimer le produit lui-même
                     await deleteDoc(doc(db, "products", productId));
-                    alert("Produit et ses commentaires supprimés avec succès !");
-                    loadProducts(); // Recharger la liste
-                    loadDashboardStats(); // Mettre à jour les stats
+                    alert("Produit, ses commentaires et (si présente) son image supprimés avec succès !");
+                    loadProducts();
+                    loadDashboardStats();
                 } catch (error) {
                     console.error("Erreur lors de la suppression du produit:", error);
                     alert("Erreur lors de la suppression du produit : " + error.message);
@@ -694,7 +740,6 @@
         async function loadAdminMessages() {
             messageList.innerHTML = '<li style="text-align: center; color: var(--light-text-color);">Chargement des messages...</li>';
             try {
-                // L'admin peut lire tous les messages grâce aux règles Firebase
                 const messagesQuery = query(collection(db, "messages"), orderBy("createdAt", "desc"));
                 const messagesSnapshot = await getDocs(messagesQuery);
 
@@ -737,17 +782,14 @@
                 try {
                     await deleteDoc(doc(db, "messages", messageId));
                     alert("Message supprimé avec succès !");
-                    loadAdminMessages(); // Recharger la liste des messages
-                    loadDashboardStats(); // Mettre à jour les stats
+                    loadAdminMessages();
+                    loadDashboardStats();
                 } catch (error) {
                     console.error("Erreur lors de la suppression du message:", error);
                     alert("Erreur lors de la suppression du message : " + error.message);
                 }
             }
         }
-
-        // Initialiser l'affichage au chargement de la page
-        // Le onAuthStateChanged gérera l'affichage de la page de connexion ou du dashboard
     </script>
 </body>
 </html>
